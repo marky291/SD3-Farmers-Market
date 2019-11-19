@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="app.css">
     </head>
     <body>
-        <div class="container">
+        <div id="app" class="container">
             <h1>Hello, World</h1>
         </div>
 
