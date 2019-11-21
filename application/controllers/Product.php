@@ -9,8 +9,10 @@ class Product extends MY_Controller
 {
     public function index()
     {
-        $productLine = $this->product_model->allGroupedByProductLine();
-
-        return $this->load->view('products/index', compact('productLine'));
+        return $this->load->view('products/index', [
+            'lineProducts' => $this->product_model->allGroupedByProductLine(),
+            'lines' => $this->product_model->allProductLines(),
+            'suppliers' => $this->product_model->allSuppliers()
+        ]);
     }
 }

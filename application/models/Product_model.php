@@ -67,7 +67,17 @@ class Product_model extends MY_Model
      */
     public function all()
     {
-        return $this->db->get('products')->result('Product_model');
+        return $this->db->get('products')->result('product_model');
+    }
+
+    public function allProductLines()
+    {
+        return $this->db->select('productLine')->group_by('productLine')->get('products')->result('product_model');
+    }
+
+    public function allSuppliers()
+    {
+        return $this->db->select('supplier')->group_by('supplier')->get('products')->result('product_model');
     }
 
     /**
