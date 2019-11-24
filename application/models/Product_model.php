@@ -51,6 +51,16 @@ class Product_model extends MY_Model
     }
 
     /**
+     * Get the full image url for items image O.O
+     *
+     * @return string
+     */
+    public function thumbImageUrl()
+    {
+        return base_url("images/products/thumbs/{$this->photo}");
+    }
+
+    /**
      * Get the price with two decimal places.
      *
      * @return string
@@ -60,12 +70,7 @@ class Product_model extends MY_Model
         return number_format($this->bulkSalePrice, 2);
     }
 
-    /**
-     * Get all the products frmo the database.
-     *
-     * @return array
-     */
-    public function all()
+    public function allProducts()
     {
         return $this->db->get('products')->result('product_model');
     }
@@ -90,7 +95,7 @@ class Product_model extends MY_Model
         $grouped = array();
 
         // store as group in array
-        foreach ($this->all() as $product) {
+        foreach ($this->allProducts() as $product) {
             $grouped[$product->productLine][] = $product;
         }
 

@@ -15,4 +15,11 @@ class Product extends MY_Controller
             'suppliers' => $this->product_model->allSuppliers()
         ]);
     }
+
+    public function supplier($supplier)
+    {
+        var_dump($supplier);
+
+        exit();
+    }
 }
