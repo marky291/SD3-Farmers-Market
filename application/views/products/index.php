@@ -8,18 +8,20 @@
         </div>
         <div class="col-10">
             <?php /** @var Product_model $product */ ?>
-            <?php foreach ($lineProducts as $line): ?>
-                <h4 class="mb-1">Browse <?php echo plural($line[0]->productLine) ?></h4>
-                <div class="d-flex flex-wrap mb-5 flex-1p-2 pt-3">
-                    <?php foreach ($line as $product): ?>
-                        <product-card inline-template>
-                            <div class="card mb-2 shadow-sm" style="width: 291.64px; margin-right: 5px; margin-left: 5px;">
+            <?php if(isset($heading)): ?>
+                <h4 class="mb-1"><?php echo plural($heading) ?></h4>
+            <?php endif; ?>
+            <div class="d-flex flex-wrap mb-5 flex-1p-2 pt-3">
+                <?php if(count($products)): ?>
+                    <?php foreach ($products as $product): ?>
+                        <product-card :product="<?php echo htmlentities(json_encode($product))?>" inline-template>
+                            <div class="card mb-2 shadow-sm" style="width: 291.64px; margin-right: 5px; margin-left: 5px;" @click='viewProduct("<?php echo $product->viewProductLink()?>")'>
                                 <div class="row no-gutters">
                                     <div class="card-body" style="border:none !important">
                                         <div class="d-flex justify-content-between">
                                             <div class="">
                                                 <h5 class="card-title"><?php echo $product->description ?></h5>
-                                                <p>EUR <?php echo $product->formatPrice() ?></p>
+                                                <p>EUR <?php echo $product->formatSalePrice() ?></p>
                                             </div>
                                             <img class="rounded-circle shadow" src="<?php echo $product->thumbImageUrl() ?>" alt="Product image" height="45px" width="50px">
                                         </div>
@@ -32,8 +34,10 @@
                             </div>
                         </product-card>
                     <?php endforeach; ?>
-                </div>
-            <?php endforeach; ?>
+                <?php else: ?>
+                    <h5>No products to display with the requested parameters</h5>
+                <?php endif; ?>
+            </div>
         </div>
     </div>
 </div>

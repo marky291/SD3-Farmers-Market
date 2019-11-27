@@ -1,3 +1,3 @@
-    <script src="app.js"></script>
+    <script src="<?php echo base_url('app.js') ?>"></script>
     </body>
 </html>

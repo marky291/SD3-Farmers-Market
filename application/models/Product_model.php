@@ -41,6 +41,16 @@ class Product_model extends MY_Model
     public $supplier;
 
     /**
+     * View this items product link on the www.
+     *
+     * @return string
+     */
+    public function viewProductLink()
+    {
+        return base_url("product/view/{$this->produceCode}");
+    }
+
+    /**
      * Get the full image url for items image O.O
      *
      * @return string
@@ -65,9 +75,19 @@ class Product_model extends MY_Model
      *
      * @return string
      */
-    public function formatPrice()
+    public function formatSalePrice()
     {
         return number_format($this->bulkSalePrice, 2);
+    }
+
+    /**
+     * Get the price with two decimal places.
+     *
+     * @return string
+     */
+    public function formatBuyPrice()
+    {
+        return number_format($this->bulkBuyPrice, 2);
     }
 
     public function allProducts()
@@ -85,20 +105,18 @@ class Product_model extends MY_Model
         return $this->db->select('supplier')->group_by('supplier')->get('products')->result('product_model');
     }
 
-    /**
-     * Get all the items grouped by the product line,
-     *
-     * @return array
-     */
-    public function allGroupedByProductLine()
+    public function firstWhereProduceCode($produceCode)
     {
-        $grouped = array();
+        return $this->db->get_where('products', ['produceCode' => $produceCode])->first_row('product_model');
+    }
 
-        // store as group in array
-        foreach ($this->allProducts() as $product) {
-            $grouped[$product->productLine][] = $product;
-        }
+    public function allWhereLike($text)
+    {
+        return $this->db->like('description', $text)->get('products')->result('product_model');
+    }
 
-        return $grouped;
+    public function getRandomProducts($count = 7)
+    {
+        return $this->db->order_by('rand()')->limit($count)->get('products')->result('product_model');
     }
 }

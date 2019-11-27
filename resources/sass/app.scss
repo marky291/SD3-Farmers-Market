@@ -1,8 +1,9 @@
 $lit-red: #e42312;
 
-@import '~bootstrap/scss/bootstrap';
 @import '~@fortawesome/fontawesome-free/scss/solid';
 @import '~@fortawesome/fontawesome-free/scss/fontawesome';
+@import '~at-ui-style';
+@import '~bootstrap/scss/bootstrap';
 
 * {
   font-size: 0.9rem;

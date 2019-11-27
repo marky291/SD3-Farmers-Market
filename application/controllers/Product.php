@@ -4,22 +4,35 @@
  * Class Product
  *
  * @property Product_model $product_model
+ * @property Order_model $order_model
  */
 class Product extends MY_Controller
 {
     public function index()
     {
         return $this->load->view('products/index', [
-            'lineProducts' => $this->product_model->allGroupedByProductLine(),
-            'lines' => $this->product_model->allProductLines(),
-            'suppliers' => $this->product_model->allSuppliers()
+            'heading' => 'All Market Items',
+            'products' => $this->product_model->allProducts(),
         ]);
     }
 
-    public function supplier($supplier)
+    public function view($produceCode)
     {
-        var_dump($supplier);
+        $product = $this->product_model->firstWhereProduceCode($produceCode);
 
-        exit();
+        return $this->load->view('products/view', [
+            'heading' => $product->description,
+            'product' => $product,
+        ]);
+    }
+
+    public function search()
+    {
+        $textToSearch = $this->input->get('query');
+
+        return $this->load->view('products/index', [
+            'heading' => "Searching {$textToSearch}",
+            'products' => $this->product_model->allWhereLike($textToSearch),
+        ]);
     }
 }
