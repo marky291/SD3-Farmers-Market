@@ -23,7 +23,13 @@
                                                 <h5 class="card-title"><?php echo $product->description ?></h5>
                                                 <p>EUR <?php echo $product->formatSalePrice() ?></p>
                                             </div>
-                                            <img class="rounded-circle shadow" src="<?php echo $product->thumbImageUrl() ?>" alt="Product image" height="45px" width="50px">
+                                            <div class="rounded-circle" style="
+                                                    height:50px;
+                                                    width:50px;
+                                                    background-position: center;
+                                                    background-size: cover;
+                                                    background-image: url(<?php echo $product->thumbImageUrl()?>)">
+                                            </div>
                                         </div>
                                         <p class="card-text d-flex align-items-center justify-content-between">
                                             <small class="text-muted">Supplied by <?php echo $product->supplier ?></small>

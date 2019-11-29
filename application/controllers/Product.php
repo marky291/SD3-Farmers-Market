@@ -8,6 +8,11 @@
  */
 class Product extends MY_Controller
 {
+    /**
+     * View all products in the database,
+     *
+     * @return object|string
+     */
     public function index()
     {
         return $this->load->view('products/index', [
@@ -16,6 +21,12 @@ class Product extends MY_Controller
         ]);
     }
 
+    /**
+     * View a specific product in the database.
+     *
+     * @param $produceCode
+     * @return object|string
+     */
     public function view($produceCode)
     {
         $product = $this->product_model->firstWhereProduceCode($produceCode);
@@ -26,6 +37,11 @@ class Product extends MY_Controller
         ]);
     }
 
+    /**
+     * Search products in the database.
+     *
+     * @return object|string
+     */
     public function search()
     {
         $textToSearch = $this->input->get('query');

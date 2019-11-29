@@ -30,7 +30,7 @@
                             "></div>
                             <div class="h-100 w-100 rounded" style="
                                     margin-top: -262px;
-                                    background: linear-gradient(rgba(247, 247, 247, 0), rgba(139, 139, 139, 0.08) 32.51%, rgba(0, 0, 0, 0.65));
+                                    background: linear-gradient(rgba(247, 247, 247, 0), rgba(139, 139, 139, 0.08) 80%, rgba(0, 0, 0, 0.65));
                             "></div>
                         </div>
                     </div>
