@@ -34083,6 +34083,10 @@ a.logo .title {
   border-color: #e42312;
 }
 
+.btn-primary:hover {
+  background-color: #cc1f10;
+}
+
 .card {
   border: 1px solid #e8e8e8;
   border-bottom-width: 2px;
@@ -34094,5 +34098,44 @@ a.logo .title {
   border-left: 1px solid #e1e1e1;
   border-right: 1px solid #e1e1e1;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+.navigation .navigation-item {
+  padding-left: 15px;
+  padding-right: 15px;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  color: lightgrey;
+  text-align: center;
+}
+
+.navigation .navigation-item:hover {
+  color: #e42312 !important;
+  text-decoration: none;
+}
+
+.navigation .navigation-item i {
+  font-size: 1.5em;
+}
+
+.navigation .navigation-item p {
+  margin-bottom: 0;
+  font-weight: 500;
+}
+
+.search input {
+  border-radius: 0.25rem 0 0 0.25rem;
+}
+
+.search .btn {
+  border: 2px solid #e42312;
+  border-radius: 0 0.25rem 0.25rem 0;
+}
+
+.search .btn:hover {
+  border-color: #cc1f10;
 }
 

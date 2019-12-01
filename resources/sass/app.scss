@@ -28,6 +28,10 @@ a.logo {
 .btn-primary {
   background-color: $lit-red;
   border-color: $lit-red;
+
+  &:hover {
+    background-color: darken($lit-red, 5%);
+  }
 }
 
 .card {
@@ -44,7 +48,36 @@ a.logo {
 }
 
 .navigation {
-  .menu-item {
-    //
+  .navigation-item {
+    padding-left: 15px;
+    padding-right: 15px;
+    display: flex;
+    flex-direction: column;
+    color: lightgrey;
+    text-align: center;
+    &:hover {
+      color: $lit-red !important;
+      text-decoration: none;
+    }
+    i {
+      font-size: 1.5em;
+    }
+    p {
+      margin-bottom: 0;
+      font-weight: 500;
+    }
+  }
+}
+
+.search {
+  input {
+    border-radius: 0.25rem 0 0 0.25rem;
+  }
+  .btn {
+    border: 2px solid $lit-red;
+    border-radius: 0 0.25rem 0.25rem 0;
+    &:hover {
+      border-color: darken($lit-red, 5%);
+    }
   }
 }

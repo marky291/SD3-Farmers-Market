@@ -14,19 +14,22 @@
     <div class="container">
         <div class="d-flex justify-content-between align-items-center">
             <div class="d-flex align-items-center">
-                <a href="<?php echo base_url('/')?>" class="logo d-flex align-items-center">
+                <a href="<?php echo base_url('/')?>" class="logo d-flex align-items-center mr-4">
                     <img src="<?php echo base_url('/images/logo.png') ?>" alt="LIT Logo" height="50px">
                     <span class="title text-lit-red mb-0 ml-3">
                         LIT Farmers Market
                     </span>
                 </a>
             </div>
-            <form class="form-inline" method="get" action="/product/search">
-                <div class="form-group">
-                    <input style="width:300px;" type="text" class="form-control" name="query" id="" aria-describedby="helpId" placeholder="Search for Anything">
-                    <button type="submit" class="btn btn-primary ml-2">Search</button>
-                </div>
-            </form>
+            <div class="d-flex">
+                <form class="form-inline" method="get" action="/product/search">
+                    <div class="form-group search">
+                        <input style="width:300px;" type="text" class="form-control" name="query" id="" aria-describedby="helpId" placeholder="Search for Anything">
+                        <button type="submit" class="btn btn-primary mr-4">Search</button>
+                    </div>
+                </form>
+                <?php $this->view('market'); ?>
+            </div>
         </div>
     </div>
 </div>
