@@ -90,31 +90,49 @@ class Product_model extends MY_Model
         return number_format($this->bulkBuyPrice, 2);
     }
 
+    /**
+     * @return array
+     */
     public function allProducts()
     {
         return $this->db->get('products')->result('product_model');
     }
 
+    /**
+     * @return array
+     */
     public function allProductLines()
     {
         return $this->db->select('productLine')->group_by('productLine')->get('products')->result('product_model');
     }
 
+    /**
+     * @return array
+     */
     public function allSuppliers()
     {
         return $this->db->select('supplier')->group_by('supplier')->get('products')->result('product_model');
     }
 
+    /**
+     * @return array
+     */
     public function firstWhereProduceCode($produceCode)
     {
         return $this->db->get_where('products', ['produceCode' => $produceCode])->first_row('product_model');
     }
 
+    /**
+     * @return array
+     */
     public function allWhereLike($text)
     {
         return $this->db->like('description', $text)->get('products')->result('product_model');
     }
 
+    /**
+     * @return array
+     */
     public function getRandomProducts($count = 7)
     {
         return $this->db->order_by('rand()')->limit($count)->get('products')->result('product_model');
