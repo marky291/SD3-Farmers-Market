@@ -57,7 +57,7 @@ class Product_model extends MY_Model
      */
     public function fullImageUrl()
     {
-        return base_url("images/products/full/{$this->photo}");
+        return base_url("assets/images/products/full/{$this->photo}");
     }
 
     /**
@@ -67,7 +67,7 @@ class Product_model extends MY_Model
      */
     public function thumbImageUrl()
     {
-        return base_url("images/products/thumbs/{$this->photo}");
+        return base_url("assets/images/products/thumbs/{$this->photo}");
     }
 
     /**
