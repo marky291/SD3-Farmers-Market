@@ -23,7 +23,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://farmers-market.test';
+
+// we use a different domain on production, assign it here if its on production. k00233238.com
+$config['base_url'] = ($_SERVER['SERVER_ADDR'] === '127.0.0.1' ? 'http://farmers-market.test' : 'https://k00233238.com');
 
 /*
 |--------------------------------------------------------------------------
