@@ -4,9 +4,8 @@
     <meta charset="utf-8">
     <title>LIT Farmers Market</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="<?php echo base_url('assets/favicon.ico') ?>" type="image/x-icon">
-    <link rel="stylesheet" href="<?php echo base_url('assets/app.css') ?>">
+    <link rel="icon" href="<?php echo base_url('favicon.ico') ?>" type="image/x-icon">
+    <link rel="stylesheet" href="<?php echo base_url('app.css') ?>">
 </head>
 
 <body>
@@ -15,7 +14,7 @@
         <div class="d-flex justify-content-between align-items-center">
             <div class="d-flex align-items-center">
                 <a href="<?php echo base_url('/')?>" class="logo d-flex align-items-center mr-4">
-                    <img src="<?php echo base_url('assets/images/logo.png') ?>" alt="LIT Logo" height="50px">
+                    <img src="<?php echo base_url('images/logo.png') ?>" alt="LIT Logo" height="50px">
                     <span class="title text-lit-red mb-0 ml-3">
                         LIT Farmers Market
                     </span>
