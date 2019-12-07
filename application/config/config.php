@@ -37,7 +37,7 @@ $config['base_url'] = ($_SERVER['SERVER_ADDR'] === '127.0.0.1' ? 'http://farmers
 | variable so that it is blank.
 |
 */
-$config['index_page'] = '';
+$config['index_page'] = 'index.php';
 
 /*
 |--------------------------------------------------------------------------
