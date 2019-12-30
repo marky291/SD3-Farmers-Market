@@ -1,13 +1,13 @@
 <?php
 
-function valid($value, $error)
+function feedback($field)
 {
-    if ($error == '') {
-        return $value;
+    if (form_error($field)) {
+        return 'is-invalid';
     }
 
-    if ($error) {
-        return 'is-invalid';
+    if (!set_value($field)) {
+        return 'empty';
     }
 
     return 'is-valid';

@@ -4,6 +4,7 @@
  * Class Controller
  *
  * @property CI_Input $input
+ * @property CI_Form_validation $form_validation
  */
 class MY_Controller extends CI_Controller
 {
@@ -25,5 +26,15 @@ class MY_Controller extends CI_Controller
     public function isGetMethod()
     {
         return $this->input->method() === 'GET';
+    }
+
+    /**
+     * Invert the form validation run function.
+     *
+     * @return bool
+     */
+    public function failsFormValidation()
+    {
+        return $this->form_validation->run() === false;
     }
 }

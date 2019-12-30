@@ -19,7 +19,7 @@
 <!--            </a>-->
 <!--        </li>-->
         <li>
-            <a href="" class="navigation-item">
+            <a href="/auth/login" class="navigation-item">
                 <i class="fas fa-sign-in-alt"></i>
                 <p>Log In</p>
             </a>
