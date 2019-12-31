@@ -29,6 +29,7 @@ class Product extends MY_Controller
      */
     public function view($produceCode)
     {
+        /** @var Product_model $product */
         $product = $this->product_model->firstWhereProduceCode($produceCode);
 
         return $this->load->view('products/view', [

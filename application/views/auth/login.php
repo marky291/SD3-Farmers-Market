@@ -5,6 +5,16 @@
         <form class="p-4" method="post">
             <h4>Log In</h4>
             <p>Authenticate your account and gain access to additional features.</p>
+
+            <?php if ($this->session->flashdata('error')) : ?>
+                <div class="alert alert-danger" role="alert">
+                    <?php echo $this->session->flashdata('error'); ?>
+                    <?php if ($this->session->flashdata('attempts')) : ?>
+                        -- <?php echo $this->session->flashdata('attempts'); ?> attempts.
+                    <?php endif ?>
+                </div>
+            <?php endif ?>
+
             <div class="form-group">
                 <label for="emailInput">Email address</label>
                 <input type="email" class="form-control <?php echo feedback('email') ?>" id="emailInput" aria-describedby="emailHelp" name="email" value="<?php echo set_value('email'); ?>" size="50">

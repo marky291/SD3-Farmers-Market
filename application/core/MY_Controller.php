@@ -37,4 +37,22 @@ class MY_Controller extends CI_Controller
     {
         return $this->form_validation->run() === false;
     }
+
+    /**
+     * Hacky way of clearing the form data, is redirecting back to itself.
+     */
+    public function clearFormInputs()
+    {
+        redirect(current_url());
+    }
+
+    /**
+     * Sometimes u wanna redirect ot another controller, since that handles data
+     * for the page. we dont want to handle that shit.
+     * @param $controller
+     */
+    public function redirectToController($controller)
+    {
+        redirect($controller);
+    }
 }

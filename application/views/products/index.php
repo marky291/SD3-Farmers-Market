@@ -1,6 +1,14 @@
 
 <?php $this->view('header'); ?>
 
+<?php if ($this->session->flashdata('attempts')) : ?>
+    <div class="alert alert-danger" role="alert" style="margin-bottom: -1em;">
+        <div class="container">
+            <?php echo $this->session->flashdata('attempts'); ?> failed password attempt(s) were previously made on your account.
+        </div>
+    </div>
+<?php endif ?>
+
 <div id="app" class="container">
     <div class="row py-5">
         <div class="col-2">
