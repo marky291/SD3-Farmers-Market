@@ -1,18 +1,18 @@
 <div class="navigation">
     <ul class="list-group d-flex flex-row">
         <?php if (authenticated()): ?>
-            <li>
-                <a href="" class="navigation-item">
-                    <i class="fas fa-user-circle"></i>
-                    <p><?php echo user()->contactLastName ?></p>
-                </a>
-            </li>
 <!--            <li>-->
 <!--                <a href="" class="navigation-item">-->
-<!--                    <i class="fas fa-shopping-basket"></i>-->
-<!--                    <p>Items (0)</p>-->
+<!--                    <i class="fas fa-user-circle"></i>-->
+<!--                    <p>--><?php //echo user()->contactLastName ?><!--</p>-->
 <!--                </a>-->
 <!--            </li>-->
+            <li>
+                <a href="" class="navigation-item">
+                    <i class="fas fa-shopping-basket"></i>
+                    <p>Basket (0)</p>
+                </a>
+            </li>
 <!--            <li>-->
 <!--                <a href="" class="navigation-item">-->
 <!--                    <i class="fas fa-cash-register"></i>-->

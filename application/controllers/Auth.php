@@ -35,7 +35,7 @@ class Auth extends MY_Controller
                 // reset the login attempts since we logged in.
                 $user->setLoginAttempts(0)->update();
                 // back to dashboard.
-                $this->redirectToController('product/index');
+                $this->redirectToController('/');
             } else {
                 // we increment the login attempts on failure. k.
                 $user->incrementLoginAttempt()->update();
@@ -59,7 +59,7 @@ class Auth extends MY_Controller
         // clear the user data.
         $this->session->unset_userdata('auth');
         // back to dashboard.
-        $this->redirectToController('product/index');
+        $this->redirectToController('/');
     }
 
     /**

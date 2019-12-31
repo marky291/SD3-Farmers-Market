@@ -25,24 +25,23 @@
                         <product-card :product="<?php echo htmlentities(json_encode($product))?>" inline-template>
                             <div class="card mb-2 shadow-sm" style="width: 291.64px; margin-right: 5px; margin-left: 5px;" @click='viewProduct("<?php echo $product->viewProductLink()?>")'>
                                 <div class="row no-gutters">
-                                    <div class="card-body" style="border:none !important">
-                                        <div class="d-flex justify-content-between">
-                                            <div class="">
-                                                <h5 class="card-title"><?php echo $product->description ?></h5>
-                                                <p>EUR <?php echo $product->formatSalePrice() ?></p>
+                                    <div class="card-body" style="">
+                                        <div class="p-4 border-rounded" style="background: rgba(255, 255, 255, .97;">
+                                            <div class="d-flex justify-content-between">
+                                                <div class="" style="flex:5">
+                                                    <h5 class="card-title mb-0"><?php echo $product->description ?></h5>
+                                                    <small class="text-muted mb-2">Supplied by <?php echo $product->supplier ?></small>
+                                                </div>
+                                                <div class="d-flex align-self-center" style="flex:1">
+                                                    <i class="fas fa-cart-plus" style="font-size:2em;"></i>
+                                                </div>
                                             </div>
-                                            <div class="rounded-circle" style="
-                                                    height:50px;
-                                                    width:50px;
-                                                    background-position: center;
-                                                    background-size: cover;
-                                                    background-image: url(<?php echo $product->thumbImageUrl()?>)">
+                                            <div class="card-text d-flex align-items-center justify-content-between py-2">
+                                                <p class="font-weight-bold mb-0">EUR <?php echo $product->formatSalePrice() ?></p>
+                                                <p class="mb-0">(<?php echo $product->quantityInStock ?> left.)</p>
                                             </div>
+                                            <div class="my-2" style="height:30px; background-position: center;background-size: contain;background-image: url(<?php echo $product->thumbImageUrl()?>);"></div>
                                         </div>
-                                        <p class="card-text d-flex align-items-center justify-content-between">
-                                            <small class="text-muted">Supplied by <?php echo $product->supplier ?></small>
-                                            <small class="mb-0 bg-dark text-white px-2"><?php echo $product->quantityInStock ?> Left</small>
-                                        </p>
                                     </div>
                                 </div>
                             </div>
