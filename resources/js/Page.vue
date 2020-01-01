@@ -1,16 +1,15 @@
 <script>
 
     export default {
-        props: ['basket'],
+        props: ['basketCount'],
         data: function () {
             return {
-                basketCount: this.basket.length,
+                count: this.basketCount,
             }
         },
         methods: {
-            addToBasket: function (code) {
-                this.basketCount++;
-                this.basket.push(code);
+            incrementBasketCount: function (key) {
+                this.count++;
             }
         }
     }

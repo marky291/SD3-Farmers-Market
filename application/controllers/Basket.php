@@ -23,7 +23,7 @@ class Basket extends MY_Controller
      */
     public function store($produce_code)
     {
-        //$this->session->unset_userdata('basket');
+//        $this->session->unset_userdata('basket');
 
         // get the product from the database.
         /** @var Product_model $product */
@@ -36,19 +36,24 @@ class Basket extends MY_Controller
 
         // dismantle previous baskets
         if ($this->session->has_userdata('basket')) {
-            $basket = unserialize($this->session->userdata('basket'));
+            $basket = $this->session->userdata('basket');
         } else {
             $basket = array();
         }
 
+        // initialize the key in the array.
+        if (!array_key_exists($produce_code, $basket)) {
+            $basket = array_merge($basket, array($produce_code => 0));
+        }
+
         // add our new item to that basket.
-        $basket[] = $produce_code;
+        $basket[$produce_code]++;
 
         // then recreate the basket into the session.
-        $this->session->set_userdata('basket', serialize($basket));
+        $this->session->set_userdata('basket', $basket);
 
         // debug.
-        var_dump($this->session->userdata('basket'));
+        var_dump($basket);
     }
 
     /**

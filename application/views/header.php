@@ -10,7 +10,7 @@
 
 <body>
 <div id="app" v-cloak>
-    <page :basket="<?php echo htmlentities(json_encode(unserialize($this->session->userdata('basket'))))?>" inline-template>
+    <page basket-count="<?php echo GetTotalBasketItems() ?>" inline-template>
         <div class="">
             <div class="row py-3 bg-white shadow-sm">
                 <div class="container">
