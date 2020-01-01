@@ -9,7 +9,7 @@
     </div>
 <?php endif ?>
 
-<div id="app" class="container">
+<div class="container">
     <div class="row py-5">
         <div class="col-2">
             <?php $this->view('sidebar'); ?>
@@ -22,8 +22,9 @@
             <div class="d-flex flex-wrap mb-5 flex-1p-2 pt-3">
                 <?php if(count($products)): ?>
                     <?php foreach ($products as $product): ?>
-                        <product-card :product="<?php echo htmlentities(json_encode($product))?>" inline-template>
-                            <div class="card mb-2 shadow-sm" style="width: 291.64px; margin-right: 5px; margin-left: 5px;" @click='viewProduct("<?php echo $product->viewProductLink()?>")'>
+                        <product-card @store:basket="addToBasket" :product="<?php echo htmlentities(json_encode($product))?>" inline-template>
+<!--                            @click='redirectToLink("--><?php //echo $product->viewProductLink()?><!--")'-->
+                            <div class="card mb-2 shadow-sm" style="width: 291.64px; margin-right: 5px; margin-left: 5px;">
                                 <div class="row no-gutters">
                                     <div class="card-body" style="">
                                         <div class="p-4 border-rounded" style="background: rgba(255, 255, 255, .97;">
@@ -33,7 +34,11 @@
                                                     <small class="text-muted mb-2">Supplied by <?php echo $product->supplier ?></small>
                                                 </div>
                                                 <div class="d-flex align-self-center" style="flex:1">
-                                                    <i class="fas fa-cart-plus" style="font-size:2em;"></i>
+                                                   <?php if (authenticated()): ?>
+                                                       <i class="fas fa-cart-plus text-black-50" style="font-size:2em;" @click="addThisItemToBasket()"></i>
+                                                   <?php else: ?>
+                                                       <i class="fas fa-cart-plus text-black-50" style="font-size:2em;" @click='redirectToLink("auth/login")'></i>
+                                                    <?php endif ?>
                                                 </div>
                                             </div>
                                             <div class="card-text d-flex align-items-center justify-content-between py-2">

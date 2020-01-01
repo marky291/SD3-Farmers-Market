@@ -10,7 +10,7 @@
             <li>
                 <a href="" class="navigation-item">
                     <i class="fas fa-shopping-basket"></i>
-                    <p>Basket (0)</p>
+                    <p>Basket (<b>{{ basketCount }}</b>)</p>
                 </a>
             </li>
 <!--            <li>-->

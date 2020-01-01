@@ -9,26 +9,29 @@
 </head>
 
 <body>
-<div class="row py-3 bg-white shadow-sm">
-    <div class="container">
-        <div class="d-flex justify-content-between align-items-center">
-            <div class="d-flex align-items-center">
-                <a href="<?php echo base_url('/')?>" class="logo d-flex align-items-center mr-4">
-                    <img src="<?php echo base_url('images/logo.png') ?>" alt="LIT Logo" height="50px">
-                    <span class="title text-lit-red mb-0 ml-3">
-                        LIT Farmers Market
-                    </span>
-                </a>
-            </div>
-            <div class="d-flex">
-                <form class="form-inline" method="get" action="/product/search">
-                    <div class="form-group search">
-                        <input style="width:300px;" type="text" class="form-control" name="query" id="" aria-describedby="helpId" placeholder="Search for Anything">
-                        <button type="submit" class="btn btn-primary mr-4">Search</button>
+<div id="app" v-cloak>
+    <page :basket="<?php echo htmlentities(json_encode(unserialize($this->session->userdata('basket'))))?>" inline-template>
+        <div class="">
+            <div class="row py-3 bg-white shadow-sm">
+                <div class="container">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center">
+                            <a href="<?php echo base_url('/')?>" class="logo d-flex align-items-center mr-4">
+                                <img src="<?php echo base_url('images/logo.png') ?>" alt="LIT Logo" height="50px">
+                                <span class="title text-lit-red mb-0 ml-3">
+                                LIT Farmers Market
+                            </span>
+                            </a>
+                        </div>
+                        <div class="d-flex">
+                            <form class="form-inline" method="get" action="/product/search">
+                                <div class="form-group search">
+                                    <input style="width:300px;" type="text" class="form-control" name="query" id="" aria-describedby="helpId" placeholder="Search for Anything">
+                                    <button type="submit" class="btn btn-primary mr-4">Search</button>
+                                </div>
+                            </form>
+                            <?php $this->view('market'); ?>
+                        </div>
                     </div>
-                </form>
-                <?php $this->view('market'); ?>
+                </div>
             </div>
-        </div>
-    </div>
-</div>
