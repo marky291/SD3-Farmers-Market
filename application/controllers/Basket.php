@@ -13,7 +13,12 @@ class Basket extends MY_Controller
      */
     public function index()
     {
+        $basket = $this->session->userdata('basket');
 
+        return $this->load->view('basket/index', [
+            'heading' => 'My Shopping Basket Item',
+            'products' => $this->product_model->allWhereIn(array_keys($basket)),
+        ]);
     }
 
     /**
@@ -23,8 +28,6 @@ class Basket extends MY_Controller
      */
     public function store($produce_code)
     {
-//        $this->session->unset_userdata('basket');
-
         // get the product from the database.
         /** @var Product_model $product */
         $product = $this->product_model->firstWhereProduceCode($produce_code);
@@ -51,18 +54,19 @@ class Basket extends MY_Controller
 
         // then recreate the basket into the session.
         $this->session->set_userdata('basket', $basket);
-
-        // debug.
-        var_dump($basket);
     }
 
     /**
-     * Delete the items in the basket.
+     * Remove the item in the basket.
+     *
+     * @param $produceCode
      */
-    public function delete($produce_code)
+    public function delete($produceCode)
     {
         $basket = $this->session->userdata('basket');
 
-        var_dump($basket);
+        if (array_key_exists($produceCode, $basket)) {
+            $basket[$produceCode]--;
+        }
     }
 }

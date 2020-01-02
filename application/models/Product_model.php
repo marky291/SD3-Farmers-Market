@@ -131,10 +131,20 @@ class Product_model extends MY_Model
     }
 
     /**
+     * @param int $count
      * @return array
      */
     public function getRandomProducts($count = 7)
     {
         return $this->db->order_by('rand()')->limit($count)->get('products')->result('product_model');
+    }
+
+    /**
+     * @param array $array_keys
+     * @return array
+     */
+    public function allWhereIn(array $array_keys)
+    {
+        return $this->db->where_in('produceCode', $array_keys)->get('products')->result('product_model');
     }
 }

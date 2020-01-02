@@ -8,7 +8,7 @@
 <!--                </a>-->
 <!--            </li>-->
             <li>
-                <a href="" class="navigation-item">
+                <a href="/basket/index" class="navigation-item">
                     <i class="fas fa-shopping-basket"></i>
                     <p>Basket (<b>{{ count }}</b>)</p>
                 </a>

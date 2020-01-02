@@ -17,7 +17,7 @@
         <div class="col-10">
             <?php /** @var Product_model $product */ ?>
             <?php if(isset($heading)): ?>
-                <h4 class="mb-1"><?php echo plural($heading) ?></h4>
+                <h4 class="mb-1"><?php echo plural($heading)?></h4>
             <?php endif; ?>
             <div class="d-flex flex-wrap mb-5 flex-1p-2 pt-3">
                 <?php if(count($products)): ?>
@@ -38,8 +38,8 @@
 <!--                                                        <button type="button" class="btn btn-outline-secondary rounded-circle" @click.stop="addThisItemToBasket()">-->
 <!--                                                            <i class="fas fa-cart-plus text-black-50" style="font-size:2em;"></i>-->
 <!--                                                        </button>-->
-                                                       <button type="button" class="btn btn-primary d-flex shadow-sm" @click.stop="addThisItemToBasket()">
-                                                           <small><i class="fas fa-plus"></i> <b>{{ count }}</b></small>
+                                                       <button type="button" class="btn btn-light d-flex" @click.stop="addThisItemToBasket()">
+                                                           <small><i class="fas fa-cart-plus"></i> <b>{{ count }}</b></small>
                                                        </button>
                                                    <?php else: ?>
                                                        <button type="button" class="btn btn-outline-secondary rounded-circle" @click.stop='redirectToLink("auth/login")'>

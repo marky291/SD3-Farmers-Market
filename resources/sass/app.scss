@@ -94,10 +94,15 @@ a.logo {
   display: none;
 }
 
-.add-to-cart-icon {
-  button {
-    i {
-
-    }
+.basket-item {
+  .picture {
+    height:75px;
+    width:100px;
   }
+
+  justify-content: space-between;
+  border-bottom: 1px solid #ccc;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  align-items: center;
 }
