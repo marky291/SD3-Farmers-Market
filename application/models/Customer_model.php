@@ -67,6 +67,10 @@ class Customer_model extends CI_Model
      * @var string
      */
     public $remember_token;
+    /**
+     * @var integer
+     */
+    public $is_admin;
 
     /**
      * @return Customer_model
@@ -162,5 +166,15 @@ class Customer_model extends CI_Model
     public function firstWhereRememberMeToken($value)
     {
         return $this->db->get_where('customers', ['remember_token' => $value])->first_row('customer_model');
+    }
+
+    /**
+     * Return if the user has admin role
+     *
+     * @return boolean
+     */
+    public function hasAdminRole()
+    {
+        return $this->is_admin;
     }
 }
