@@ -36,8 +36,8 @@
                 <?php endif; ?>
             </div>
             <div class="form-group form-check">
-                <input type="checkbox" class="form-check-input" id="rememberMeCheck">
-                <label class="form-check-label" for="rememberMeCheck">Remember me</label>
+                <input type="checkbox" class="form-check-input" id="rememberMeCheck" name="remember_me">
+                <label class="form-check-label" for="rememberMeCheck">Remember me for 7 days</label>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>

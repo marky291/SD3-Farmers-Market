@@ -5,6 +5,8 @@
  *
  * @property CI_Input $input
  * @property CI_Form_validation $form_validation
+ * @property Customer_model $customer_model
+ * @property CI_Session $session
  */
 class MY_Controller extends CI_Controller
 {

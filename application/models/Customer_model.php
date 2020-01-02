@@ -63,6 +63,10 @@ class Customer_model extends CI_Model
      * @var integer
      */
     public $loginAttempts;
+    /**
+     * @var string
+     */
+    private $remember_token;
 
     /**
      * @return Customer_model
@@ -70,6 +74,49 @@ class Customer_model extends CI_Model
     public function firstWhereEmail($email)
     {
         return $this->db->get_where('customers', ['email' => $email])->first_row('customer_model');
+    }
+
+    /**
+     * Set the remember me token
+     *
+     * @param $value
+     * @return $this
+     */
+    public function setRememberMeToken($value)
+    {
+        $this->remember_token = $value;
+
+        return $this;
+    }
+
+    /**
+     * Generate a remember me token for authentication through cookies.
+     *
+     * @return string
+     */
+    public function generateRememberMeToken()
+    {
+        try {
+            $this->setRememberMeToken(bin2hex(random_bytes(16)));
+        } catch (Exception $e) {
+            $this->generateRememberMeToken();
+        }
+
+        return $this->remember_token;
+    }
+
+    /**
+     * Clear the remember token from the user.
+     *
+     * @return $this
+     */
+    public function clearRememberMeToken()
+    {
+        $this->remember_token = null;
+
+        delete_cookie('remember_me');
+
+        return $this;
     }
 
     /**
@@ -104,5 +151,16 @@ class Customer_model extends CI_Model
     public function update()
     {
         return $this->db->update('customers', $this, ['customerNumber' => $this->customerNumber], 1);
+    }
+
+    /**
+     * Get the user with the remember me token.
+     *
+     * @param $value
+     * @return mixed
+     */
+    public function firstWhereRememberMeToken($value)
+    {
+        return $this->db->get_where('customers', ['remember_token' => $value])->first_row('customer_model');
     }
 }

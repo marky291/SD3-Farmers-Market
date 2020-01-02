@@ -25,6 +25,16 @@ class Auth extends MY_Controller
         /** @var Customer_model $user */
         $user = $this->customer_model->firstWhereEmail($this->input->post('email'));
 
+        // persistence login through cookies.
+        if ($this->input->post('remember_me'))
+        {
+            $token = $user->generateRememberMeToken();
+
+            set_cookie('remember_me', $token, (86400 * 7)); // set for 7 days.
+
+            $user->update(); // update the user in db with the token we generated.
+        }
+
         // we let a failure fall through for security.
         if (isset($user))
         {
@@ -58,6 +68,12 @@ class Auth extends MY_Controller
     {
         // clear the user data.
         $this->session->unset_userdata('auth');
+
+        // delete the remember me cookie if it exists.
+        if (get_cookie('remember_me')) {
+            delete_cookie('remember_me');
+        }
+
         // back to dashboard.
         $this->redirectToController('/');
     }
