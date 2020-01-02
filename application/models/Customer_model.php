@@ -66,7 +66,7 @@ class Customer_model extends CI_Model
     /**
      * @var string
      */
-    private $remember_token;
+    public $remember_token;
 
     /**
      * @return Customer_model
