@@ -34166,3 +34166,72 @@ a.logo .title {
   width: 100px;
 }
 
+.image-blocks {
+  display: -webkit-box;
+  display: flex;
+  margin-bottom: 50px;
+  -webkit-box-pack: justify;
+          justify-content: space-between;
+}
+
+.image-blocks .image,
+.image-blocks .frame {
+  width: 30%;
+  height: 285px;
+}
+
+.image-blocks .image {
+  background-position: center;
+  background-size: cover;
+}
+
+.image-blocks .frame {
+  box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.4);
+}
+
+.image-blocks .frame p {
+  color: white;
+  font-size: 3.5rem;
+  display: -webkit-box;
+  display: flex;
+  height: 100%;
+  -webkit-box-align: end;
+          align-items: flex-end;
+  padding-left: 30px;
+  padding-bottom: 25px;
+  text-shadow: 0 1px 6px black;
+}
+
+.base-color-base {
+  height: 5px;
+  background-color: #cc1f10;
+}
+
+.base-color-mid {
+  height: 3px;
+  background-color: #b51c0e;
+}
+
+.base-color-high {
+  height: 38px;
+  background-color: #dfdfdf5e;
+}
+
+.copyright {
+  padding-top: 15px;
+  padding-bottom: 30px;
+  background-color: rgba(172, 39, 174, 0.368627451);
+}
+
+.copyright p {
+  font-size: 1.2em;
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+
+.footer-bg {
+  background-blend-mode: overlay;
+  background: -webkit-gradient(linear, left bottom, left top, from(#4822af), to(#e42312)), url(/images/site/overlay-stripe.jpg) !important;
+  background: linear-gradient(0deg, #4822af, #e42312), url(/images/site/overlay-stripe.jpg) !important;
+  box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+}
+

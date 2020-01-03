@@ -50,7 +50,7 @@ class Auth extends MY_Controller
                 // we increment the login attempts on failure. k.
                 $user->incrementLoginAttempt()->update();
                 // lets tell the user how many attempts failed.
-                $this->session->set_flashdata('attempts', $user->loginAttempts);
+                $this->session->set_flashdata('failed', $user->loginAttempts);
             }
         }
 
@@ -61,6 +61,17 @@ class Auth extends MY_Controller
         $this->clearFormInputs();
     }
 
+    /**
+     * Register a new user to the application
+     *
+     * @return object|string
+     */
+    public function register() {
+        // check if get request or if the form validation fails.
+        if ($this->isGetMethod() || $this->failsFormValidation()) {
+            return $this->load->view('auth/register');
+        }
+    }
     /**
      * Logout the user from the application.
      */

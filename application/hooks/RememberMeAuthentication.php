@@ -21,8 +21,8 @@ class RememberMeAuthentication
         // grab the token from the cookie.
         $token = $igniter->input->cookie('remember_me');
 
-        // does the token exist?
-        if ($token === null) {
+        // does the token exist? dont work with blanks
+        if ($token === null || $token === '') {
             return;
         }
 

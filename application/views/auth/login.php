@@ -9,8 +9,8 @@
             <?php if ($this->session->flashdata('error')) : ?>
                 <div class="alert alert-danger" role="alert">
                     <?php echo $this->session->flashdata('error'); ?>
-                    <?php if ($this->session->flashdata('attempts')) : ?>
-                        -- <?php echo $this->session->flashdata('attempts'); ?> attempts.
+                    <?php if ($this->session->flashdata('failed')) : ?>
+                        -- <?php echo $this->session->flashdata('failed'); ?> attempts.
                     <?php endif ?>
                 </div>
             <?php endif ?>
