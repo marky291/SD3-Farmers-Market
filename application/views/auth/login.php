@@ -17,7 +17,7 @@
 
             <div class="form-group">
                 <label for="emailInput">Email address</label>
-                <input type="email" class="form-control <?php echo feedback('email') ?>" id="emailInput" aria-describedby="emailHelp" name="email" value="<?php echo set_value('email'); ?>" size="50">
+                <input type="email" class="form-control <?php echo feedback('email') ?>" id="emailInput" aria-describedby="emailHelp" name="email" value="<?php echo set_value('email'); ?>" >
                 <?php if (form_error('email')): ?>
                     <div class="invalid-feedback">
                         <?php echo form_error('email'); ?>

@@ -4,6 +4,7 @@
  * Class Customer_model
  *
  * @property CI_DB_query_builder $db
+ * @property Bcrypt $bcrypt
  */
 class Customer_model extends CI_Model
 {
@@ -155,6 +156,21 @@ class Customer_model extends CI_Model
     public function update()
     {
         return $this->db->update('customers', $this, ['customerNumber' => $this->customerNumber], 1);
+    }
+
+    /**
+     * Save the object as an new entity in the database with the attributes
+     *
+     * @param array $attributes
+     * @return Customer_model
+     */
+    public function save($attributes = array())
+    {
+        // insert into database,
+        $this->db->insert('customers', $attributes);
+
+        // return the object we created in database (ORM)
+        return $this->firstWhereEmail($attributes['email']);
     }
 
     /**

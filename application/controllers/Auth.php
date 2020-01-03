@@ -38,17 +38,26 @@ class Auth extends MY_Controller
         // we let a failure fall through for security.
         if (isset($user))
         {
-            if ($this->isValidPassword($user)) {
+            if ($this->isValidPassword($user))
+            {
+                // store the user in the session
                 $this->session->set_userdata('auth', serialize($user));
-                // display previous attempts on the account
-                $this->session->set_flashdata('attempts', $user->loginAttempts);
+
+                // display previous attempts on the account if they exist!
+                if ($user->loginAttempts) {
+                    $this->session->set_flashdata('danger', "{$user->loginAttempts} failed password attempt(s) were previously made on your account.");
+                }
                 // reset the login attempts since we logged in.
                 $user->setLoginAttempts(0)->update();
+
                 // back to dashboard.
                 $this->redirectToController('/');
-            } else {
+            }
+            else
+            {
                 // we increment the login attempts on failure. k.
                 $user->incrementLoginAttempt()->update();
+
                 // lets tell the user how many attempts failed.
                 $this->session->set_flashdata('failed', $user->loginAttempts);
             }
@@ -71,19 +80,41 @@ class Auth extends MY_Controller
         if ($this->isGetMethod() || $this->failsFormValidation()) {
             return $this->load->view('auth/register');
         }
+
+        // create customer with static like new
+        $customer = (new Customer_model)->save(array(
+            'customerName' => $this->input->post('company'),
+            'contactFirstName' => $this->input->post('forename'),
+            'contactLastName' => $this->input->post('surname'),
+            'phone' => $this->input->post('phone'),
+            'addressLine1' => $this->input->post('address_line_one'),
+            'addressLine2' => $this->input->post('address_line_two'),
+            'city' => $this->input->post('city'),
+            'postalCode' => $this->input->post('eircode'),
+            'country' => $this->input->post('country'),
+            'email' => $this->input->post('email'),
+            'password' => $this->bcrypt->hash_password($this->input->post('password'))
+        )); // this saves to database.
+
+        // delete any previous data we hold, same user + new profile.
+        $this->clearStoredSessionData();
+
+        // automatic sign in... wow
+        $this->session->set_userdata('auth', serialize($customer));
+
+        // welcome the user to the system
+        $this->session->set_flashdata('success', "Registration complete! Welcome to the farmers market {$customer->contactFirstName} {$customer->contactLastName}!");
+
+        // dashboard kool
+        $this->redirectToController('/');
     }
     /**
      * Logout the user from the application.
      */
     public function logout()
     {
-        // clear the user data.
-        $this->session->unset_userdata('auth');
-
-        // delete the remember me cookie if it exists.
-        if (get_cookie('remember_me')) {
-            delete_cookie('remember_me');
-        }
+        // clear any data we are holding
+        $this->clearStoredSessionData();
 
         // back to dashboard.
         $this->redirectToController('/');
@@ -96,5 +127,22 @@ class Auth extends MY_Controller
     public function isValidPassword(Customer_model $user)
     {
         return $this->bcrypt->check_password($this->input->post('password'), $user->password);
+    }
+
+    /**
+     * Clear any data we may have on the user.
+     */
+    public function clearStoredSessionData()
+    {
+        // clear the user data from session.
+        $this->session->unset_userdata('auth');
+
+        // clear the basket from the session.
+        $this->session->unset_userdata('basket');
+
+        // delete the remember me cookie if it exists.
+        if (get_cookie('remember_me')) {
+            delete_cookie('remember_me');
+        }
     }
 }
