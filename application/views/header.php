@@ -10,7 +10,7 @@
 
 <body>
 <div id="app" v-cloak>
-    <page basket-count="<?php echo GetTotalBasketItems() ?>" inline-template>
+    <page basket-count="<?php echo BasketTotalCount() ?>" inline-template>
         <div class="">
             <div class="row py-3 bg-white shadow-sm">
                 <div class="container">

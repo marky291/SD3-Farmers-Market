@@ -9,13 +9,16 @@
         <div class="col-10">
             <?php /** @var Product_model $product */ ?>
             <?php if(isset($heading)): ?>
-                <h4 class="mb-1"><?php echo plural($heading)?></h4>
+                <div class="d-flex justify-content-between align-items-center">
+                    <h4 class="mb-1"><?php echo plural($heading)?></h4>
+                    <a href="/wishlist/index"><span class="font-weight-bold">My Wishlist <i class="fas fa-star"></i></span></a>
+                </div>
             <?php endif; ?>
             <div class="d-flex flex-wrap mb-5 flex-1p-2 pt-3">
                 <?php if(count($products)): ?>
                     <?php foreach ($products as $product): ?>
-                        <product-card @store:basket="incrementBasketCount" :limit="<?php echo $product->quantityInStock ?>" :total="<?php echo GetBasketItemCount($product->produceCode) ?>" :product="<?php echo htmlentities(json_encode($product))?>" inline-template>
-                            <div class="card mb-2 shadow-sm" style="width: 291.64px; margin-right: 5px; margin-left: 5px;" @click='redirectToLink("<?php echo $product->viewProductLink()?>")'>
+                        <product @store:basket="incrementBasketCount" :wishlisted="<?php echo $product->isWishListedBy(user()) ? 'true' : 'false' ?>" :limit="<?php echo $product->quantityInStock ?>" :total="<?php echo BasketProductCount($product) ?>" :product="<?php echo htmlentities(json_encode($product))?>" inline-template>
+                            <div class="card mb-2 shadow-sm" @click='redirectToLink("<?php echo $product->viewProductLink()?>")'>
                                 <div class="row no-gutters">
                                     <div class="card-body" style="">
                                         <div class="p-4 border-rounded" style="background: rgba(255, 255, 255, .97;">
@@ -41,7 +44,7 @@
                                                 </div>
                                             </div>
                                             <div class="card-text d-flex align-items-center justify-content-between py-2">
-                                                <p class="font-weight-bold mb-0">EUR <?php echo $product->formatSalePrice() ?></p>
+                                                <p class="font-weight-bold mb-0"><small><i :class="wishlist ? 'fas fa-heart' : 'far fa-heart'" class="text-danger" @click.stop="toggleWishlist()"></i></small> EUR <?php echo $product->formatSalePrice() ?></p>
                                                 <p class="mb-0">({{ limit }} left.)</p>
                                             </div>
                                             <div class="my-2" style="height:30px; background-position: center;background-size: contain;background-image: url(<?php echo $product->thumbImageUrl()?>);"></div>
@@ -49,7 +52,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </product-card>
+                        </product>
                     <?php endforeach; ?>
                 <?php else: ?>
                     <h5>No products to display with the requested parameters</h5>

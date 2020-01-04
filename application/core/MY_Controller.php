@@ -57,4 +57,14 @@ class MY_Controller extends CI_Controller
     {
         redirect($controller);
     }
+
+    /**
+     * Get the json data from the request.
+     *
+     * @return mixed
+     */
+    public function getJsonAssociativeArray()
+    {
+        return json_decode(file_get_contents('php://input'), true);
+    }
 }

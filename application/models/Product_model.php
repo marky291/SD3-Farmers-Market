@@ -147,4 +147,19 @@ class Product_model extends MY_Model
     {
         return $this->db->where_in('produceCode', $array_keys)->get('products')->result('product_model');
     }
+
+    /**
+     * Check is the product wishlisted by a customer.
+     *
+     * @param Customer_model $customer
+     * @return bool
+     */
+    public function isWishListedBy($customer)
+    {
+        $condition = array('product_id' => $this->produceCode, 'customer_id' => $customer->customerNumber);
+
+        $wishlist = $this->db->where($condition)->get('wishlist', 1)->first_row('wishlist_model');
+
+        return $wishlist !== null;
+    }
 }

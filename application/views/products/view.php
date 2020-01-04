@@ -8,7 +8,12 @@
         </div>
         <div class="col-10">
             <?php /** @var Product_model $product */ ?>
-            <product-view :product="<?php echo htmlentities(json_encode($product))?>" inline-template>
+            <product @store:basket="incrementBasketCount"
+                     :wishlisted="<?php echo $product->isWishListedBy(user()) ? 'true' : 'false' ?>"
+                     :limit="<?php echo $product->quantityInStock ?>"
+                     :total="<?php echo BasketProductCount($product) ?>"
+                     :product="<?php echo htmlentities(json_encode($product))?>"
+            inline-template>
                 <div>
                     <div class="d-flex">
                         <div class="col-7">
@@ -19,8 +24,11 @@
                                 </div>
                                 <div class="d-flex align-self-center add-to-cart-icon">
                                     <?php if (authenticated()): ?>
+                                        <button type="button" class="btn btn-light d-flex mr-2" @click="toggleWishlist()">
+                                            <small>Save <i :class="wishlist ? 'fas fa-heart' : 'far fa-heart'" class="text-danger"></i></small>
+                                        </button>
                                         <button type="button" class="btn btn-light d-flex" @click.stop="addThisItemToBasket()">
-                                            <i class="fas fa-cart-plus"></i> <b>{{ count }}</b>
+                                            <small>Purchase <i class="fas fa-cart-plus"></i> <b>{{ count }}</b></small>
                                         </button>
                                     <?php else: ?>
                                         <button type="button" class="btn btn-outline-secondary rounded-circle" @click.stop='redirectToLink("auth/login")'>
@@ -50,7 +58,7 @@
                         </div>
                     </div>
                 </div>
-            </product-view>
+            </product>
             <div class="bg-light p-3">
                 <product-timeline product="<?php echo $product->produceCode; ?>"></product-timeline>
             </div>

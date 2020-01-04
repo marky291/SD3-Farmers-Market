@@ -1,6 +1,8 @@
 $lit-red: #e42312;
 
 @import '~@fortawesome/fontawesome-free/scss/solid';
+@import '~@fortawesome/fontawesome-free/scss/brands';
+@import '~@fortawesome/fontawesome-free/scss/regular';
 @import '~@fortawesome/fontawesome-free/scss/fontawesome';
 @import '~at-ui-style';
 @import '~bootstrap/scss/bootstrap';
@@ -41,6 +43,9 @@ a.logo {
 .card {
   border: 1px solid #e8e8e8;
   border-bottom-width: 2px;
+  width: 296.6px;
+  margin-right: 5px;
+  margin-left: 5px;
 
   &:hover {
     cursor: pointer;

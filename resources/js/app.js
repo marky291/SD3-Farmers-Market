@@ -16,8 +16,7 @@ Vue.use(VueToastr2);
 // include the component for the product items cards.
 Vue.component('page', require('./Page').default);
 Vue.component('checkout', require('./Checkout').default);
-Vue.component('product-card', require('./ProductCard').default);
-Vue.component('product-view', require('./ProductView').default);
+Vue.component('product', require('./Product').default);
 Vue.component('product-timeline', require('./ProductTimelineChart').default);
 
 /**
