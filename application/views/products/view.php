@@ -59,7 +59,7 @@
                     </div>
                 </div>
             </product>
-            <div class="bg-light p-3">
+            <div class="bg-light p-3 mt-3">
                 <product-timeline product="<?php echo $product->produceCode; ?>"></product-timeline>
             </div>
         </div>

@@ -9,6 +9,10 @@
                 type: Boolean,
                 default: false,
             },
+            editing: {
+                type: Boolean,
+                default: false,
+            }
         },
         data: function () {
             return {

@@ -1920,6 +1920,10 @@ __webpack_require__.r(__webpack_exports__);
     wishlisted: {
       type: Boolean,
       "default": false
+    },
+    editing: {
+      type: Boolean,
+      "default": false
     }
   },
   data: function data() {
