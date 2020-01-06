@@ -100,11 +100,13 @@
                                     <?php endif ?>
                                 </div>
                                 <div class="col text-right">
-                                    <?php if (!isset($editing) || $editing === false ): ?>
-                                        <button type="button" class="btn btn-info" @click="redirect('<?php echo $product->editProductLink() ?>')">Modify</button>
-                                    <?php else: ?>
-                                        <button type="submit" class="btn btn-outline-info">Update</button>
-                                        <button type="button" class="btn btn-info" @click="redirect('<?php echo $product->viewProductLink() ?>')">View</button>
+                                    <?php if (authenticated() && user()->hasAdminRole()): ?>
+                                        <?php if (!isset($editing) || $editing === false): ?>
+                                            <button type="button" class="btn btn-info" @click="redirect('<?php echo $product->editProductLink() ?>')">Modify</button>
+                                        <?php else: ?>
+                                            <button type="submit" class="btn btn-outline-info">Update</button>
+                                            <button type="button" class="btn btn-info" @click="redirect('<?php echo $product->viewProductLink() ?>')">View</button>
+                                        <?php endif ?>
                                     <?php endif ?>
                                 </div>
                             </div>
