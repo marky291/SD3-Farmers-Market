@@ -11,14 +11,16 @@
             <?php if(isset($heading)): ?>
                 <div class="d-flex justify-content-between align-items-center">
                     <h4 class="mb-1"><?php echo plural($heading)?></h4>
-                    <a href="/wishlist/index"><span class="font-weight-bold">My Wishlist <i class="fas fa-star"></i></span></a>
+                    <?php if(authenticated()): ?>
+                        <a href="/wishlist/index"><span class="font-weight-bold">My Wishlist <i class="fas fa-star"></i></span></a>
+                    <?php endif ?>
                 </div>
             <?php endif; ?>
             <div class="d-flex flex-wrap mb-5 flex-1p-2 pt-3">
                 <?php if(count($products)): ?>
                     <?php foreach ($products as $product): ?>
                         <product @store:basket="incrementBasketCount" :wishlisted="<?php echo (authenticated() && $product->isWishListedBy(user())) ? 'true' : 'false' ?>" :limit="<?php echo $product->quantityInStock ?>" :total="<?php echo BasketProductCount($product) ?>" :product="<?php echo htmlentities(json_encode($product))?>" inline-template>
-                            <div class="card mb-2 shadow-sm" @click='redirectToLink("<?php echo $product->viewProductLink()?>")'>
+                            <div class="card mb-2 shadow-sm" @click='redirect("<?php echo $product->viewProductLink()?>")'>
                                 <div class="row no-gutters">
                                     <div class="card-body" style="">
                                         <div class="p-4 border-rounded" style="background: rgba(255, 255, 255, .97;">
@@ -29,16 +31,12 @@
                                                 </div>
                                                 <div class="d-flex align-self-center add-to-cart-icon">
                                                    <?php if (authenticated()): ?>
-
-<!--                                                        <button type="button" class="btn btn-outline-secondary rounded-circle" @click.stop="addThisItemToBasket()">-->
-<!--                                                            <i class="fas fa-cart-plus text-black-50" style="font-size:2em;"></i>-->
-<!--                                                        </button>-->
                                                        <button type="button" class="btn btn-light d-flex" @click.stop="addThisItemToBasket()">
                                                            <small><i class="fas fa-cart-plus"></i> <b>{{ count }}</b></small>
                                                        </button>
                                                    <?php else: ?>
-                                                       <button type="button" class="btn btn-outline-secondary rounded-circle" @click.stop='redirectToLink("auth/login")'>
-                                                           <i class="fas fa-cart-plus text-black-50" style="font-size:2em;"></i>
+                                                       <button type="button" class="btn btn-light d-flex" @click.stop="redirect('/auth/login')">
+                                                           <small><i class="fas fa-cart-plus"></i> <b>0</b></small>
                                                        </button>
                                                     <?php endif ?>
                                                 </div>

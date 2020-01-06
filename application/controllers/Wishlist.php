@@ -15,6 +15,10 @@ class Wishlist extends MY_Controller
      */
     public function index()
     {
+        if (!authenticated()) {
+            redirect('/');
+        }
+
         $wishlistProducts = $this->wishlist_model
             ->allProductsBelongingToCustomer(user()->customerNumber);
 

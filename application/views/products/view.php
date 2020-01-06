@@ -58,7 +58,7 @@
                                             <small>Purchase <i class="fas fa-cart-plus"></i> <b>{{ count }}</b></small>
                                         </button>
                                     <?php else: ?>
-                                        <button type="button" class="btn btn-outline-secondary rounded-circle" @click.stop='redirectToLink("auth/login")'>
+                                        <button type="button" class="btn btn-outline-secondary rounded-circle" @click.stop='redirect("auth/login")'>
                                             <i class="fas fa-cart-plus text-black-50" style="font-size:2em;"></i>
                                         </button>
                                     <?php endif ?>

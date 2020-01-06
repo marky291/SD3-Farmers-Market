@@ -21,9 +21,6 @@
             }
         },
         methods: {
-            redirectToLink: function(location) {
-                window.location.href = location;
-            },
             addThisItemToBasket: function() {
                 if (this.count + 1 > this.limit){
                     this.$toastr.error('You cannot purchase more than ' + this.limit + ' ' + this.product.description, 'Limit Reached!', {progressBar: true, preventDuplicates:true, positionClass:"toast-bottom-right"});
