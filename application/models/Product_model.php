@@ -39,6 +39,10 @@ class Product_model extends MY_Model
      * @var string
      */
     public $supplier;
+    /**
+     * @var string
+     */
+    public $content;
 
     /**
      * View this items product link on the www.
@@ -48,6 +52,16 @@ class Product_model extends MY_Model
     public function viewProductLink()
     {
         return base_url("product/view/{$this->produceCode}");
+    }
+
+    /**
+     * Edit this items product link on the www.
+     *
+     * @return string
+     */
+    public function editProductLink()
+    {
+        return base_url("product/edit/{$this->produceCode}");
     }
 
     /**
@@ -161,5 +175,15 @@ class Product_model extends MY_Model
         $wishlist = $this->db->where($condition)->get('wishlist', 1)->first_row('wishlist_model');
 
         return $wishlist !== null;
+    }
+
+    /**
+     * Update the active record to the database.
+     *
+     * @return bool
+     */
+    public function update()
+    {
+        return $this->db->update('products', $this, ['produceCode' => $this->produceCode], 1);
     }
 }

@@ -171,3 +171,9 @@ a.logo {
   background: linear-gradient(0deg, #4822af, #e42312), url(/images/site/overlay-stripe.jpg) !important;
   box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
 }
+
+.card-view {
+  .card-title {
+    font-weight: 500;
+  }
+}

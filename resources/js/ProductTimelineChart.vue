@@ -13,7 +13,7 @@
                     labels: [],
                     datasets: [
                         {
-                            label: 'Ordering History',
+                            label: 'Purchases',
                             backgroundColor: '#f87979',
                             pointBackgroundColor: 'white',
                             borderWidth: 3,

@@ -84,6 +84,9 @@
                         this.$toastr.error('Something went wrong, try again later', 'Opps!', {progressBar: true,  positionClass:"toast-bottom-right"});
                     })
                 }
+            },
+            redirect: function(url) {
+                location.href = url;
             }
         }
     }
