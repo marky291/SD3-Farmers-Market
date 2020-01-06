@@ -9,7 +9,7 @@
         <div class="col-10">
             <?php /** @var Product_model $product */ ?>
             <product @store:basket="incrementBasketCount"
-                     :wishlisted="<?php echo $product->isWishListedBy(user()) ? 'true' : 'false' ?>"
+                     :wishlisted="<?php echo (authenticated() && $product->isWishListedBy(user())) ? 'true' : 'false' ?>"
                      :limit="<?php echo $product->quantityInStock ?>"
                      :total="<?php echo BasketProductCount($product) ?>"
                      :product="<?php echo htmlentities(json_encode($product))?>"
@@ -51,16 +51,18 @@
                                 </div>
                                 <div class="d-flex align-self-center add-to-cart-icon">
                                     <?php if (authenticated()): ?>
-                                        <button type="button" class="btn btn-light d-flex mr-2" @click="toggleWishlist()">
+                                        <button type="button" class="btn btn-light d-flex mr-2" @click.stop="toggleWishlist()">
                                             <small>Save <i :class="wishlist ? 'fas fa-heart' : 'far fa-heart'" class="text-danger"></i></small>
                                         </button>
                                         <button type="button" class="btn btn-light d-flex" @click.stop="addThisItemToBasket()">
                                             <small>Purchase <i class="fas fa-cart-plus"></i> <b>{{ count }}</b></small>
                                         </button>
                                     <?php else: ?>
-                                        <button type="button" class="btn btn-outline-secondary rounded-circle" @click.stop='redirect("auth/login")'>
-                                            <i class="fas fa-cart-plus text-black-50" style="font-size:2em;"></i>
-                                        </button>
+                                    <button type="button" class="btn btn-light d-flex mr-2" @click.stop="redirect('/auth/login')">
+                                        <small>Save <i :class="wishlist ? 'fas fa-heart' : 'far fa-heart'" class="text-danger"></i></small>
+                                    </button>
+                                    <button type="button" class="btn btn-light d-flex" @click.stop="redirect('/auth/login')()">
+                                        <small>Purchase <i class="fas fa-cart-plus"></i> <b>0</b></small>
                                     <?php endif ?>
                                 </div>
                             </div>

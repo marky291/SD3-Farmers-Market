@@ -49,7 +49,7 @@ class Product extends MY_Controller
         $product = $this->product_model->firstWhereProduceCode($produceCode);
 
         // block if not admin
-        if (!user()->hasAdminRole()) {
+        if (!authenticated() || !user()->hasAdminRole()) {
             show_error('You do not have permissions to view this page', 500);
         }
 

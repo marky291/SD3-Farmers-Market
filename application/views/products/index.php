@@ -42,7 +42,14 @@
                                                 </div>
                                             </div>
                                             <div class="card-text d-flex align-items-center justify-content-between py-2">
-                                                <p class="font-weight-bold mb-0"><small><i :class="wishlist ? 'fas fa-heart' : 'far fa-heart'" class="text-danger mr-2" @click.stop="toggleWishlist()"></i></small> EUR <?php echo $product->formatSalePrice() ?></p>
+                                                <p class="font-weight-bold mb-0"><small>
+                                                        <?php if (authenticated()): ?>
+                                                            <i :class="wishlist ? 'fas fa-heart' : 'far fa-heart'" class="text-danger mr-2" @click.stop="toggleWishlist()"></i>
+                                                        <?php else: ?>
+                                                            <i :class="wishlist ? 'fas fa-heart' : 'far fa-heart'" class="text-danger mr-2" @click.stop="redirect('/auth/login')"></i>
+                                                        <?php endif ?>
+                                                    </small> EUR <?php echo $product->formatSalePrice() ?>
+                                                </p>
                                                 <p class="mb-0">({{ limit }} left.)</p>
                                             </div>
                                             <div class="my-2" style="height:30px; background-position: center;background-size: contain;background-image: url(<?php echo $product->thumbImageUrl()?>);"></div>
