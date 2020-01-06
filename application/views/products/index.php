@@ -17,7 +17,7 @@
             <div class="d-flex flex-wrap mb-5 flex-1p-2 pt-3">
                 <?php if(count($products)): ?>
                     <?php foreach ($products as $product): ?>
-                        <product @store:basket="incrementBasketCount" :wishlisted="<?php echo $product->isWishListedBy(user()) ? 'true' : 'false' ?>" :limit="<?php echo $product->quantityInStock ?>" :total="<?php echo BasketProductCount($product) ?>" :product="<?php echo htmlentities(json_encode($product))?>" inline-template>
+                        <product @store:basket="incrementBasketCount" :wishlisted="<?php echo (authenticated() && $product->isWishListedBy(user())) ? 'true' : 'false' ?>" :limit="<?php echo $product->quantityInStock ?>" :total="<?php echo BasketProductCount($product) ?>" :product="<?php echo htmlentities(json_encode($product))?>" inline-template>
                             <div class="card mb-2 shadow-sm" @click='redirectToLink("<?php echo $product->viewProductLink()?>")'>
                                 <div class="row no-gutters">
                                     <div class="card-body" style="">
