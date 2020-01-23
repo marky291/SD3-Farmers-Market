@@ -104,6 +104,7 @@
                                 <div class="col text-right">
                                     <?php if (authenticated() && user()->hasAdminRole()): ?>
                                         <?php if (!isset($editing) || $editing === false): ?>
+                                            <button type="button" class="btn btn-warning" @click="redirect('<?php echo $product->deleteProductLink() ?>')">Delete</button>
                                             <button type="button" class="btn btn-info" @click="redirect('<?php echo $product->editProductLink() ?>')">Modify</button>
                                         <?php else: ?>
                                             <button type="submit" class="btn btn-outline-info">Update</button>

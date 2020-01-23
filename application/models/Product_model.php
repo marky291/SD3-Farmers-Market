@@ -65,6 +65,14 @@ class Product_model extends MY_Model
     }
 
     /**
+     * Delete this item from the www.
+     */
+    public function deleteProductLink()
+    {
+        return base_url("product/delete/{$this->produceCode}");
+    }
+
+    /**
      * Get the full image url for items image O.O
      *
      * @return string
@@ -109,6 +117,14 @@ class Product_model extends MY_Model
      */
     public function allProducts()
     {
+        return $this->db->where('deleted_at', null)->get('products')->result('product_model');
+    }
+
+    /**
+     * @return array
+     */
+    public function allProductsWithTrashed()
+    {
         return $this->db->get('products')->result('product_model');
     }
 
@@ -133,7 +149,7 @@ class Product_model extends MY_Model
      */
     public function firstWhereProduceCode($produceCode)
     {
-        return $this->db->get_where('products', ['produceCode' => $produceCode])->first_row('product_model');
+        return $this->db->where('deleted_at', null)->get_where('products', ['produceCode' => $produceCode])->first_row('product_model');
     }
 
     /**
@@ -141,7 +157,7 @@ class Product_model extends MY_Model
      */
     public function allWhereLike($text)
     {
-        return $this->db->like('description', $text)->get('products')->result('product_model');
+        return $this->db->where('deleted_at', null)->like('description', $text)->get('products')->result('product_model');
     }
 
     /**
@@ -150,7 +166,7 @@ class Product_model extends MY_Model
      */
     public function getRandomProducts($count = 7)
     {
-        return $this->db->order_by('rand()')->limit($count)->get('products')->result('product_model');
+        return $this->db->where('deleted_at', null)->order_by('rand()')->limit($count)->get('products')->result('product_model');
     }
 
     /**
@@ -159,7 +175,7 @@ class Product_model extends MY_Model
      */
     public function allWhereIn(array $array_keys)
     {
-        return $this->db->where_in('produceCode', $array_keys)->get('products')->result('product_model');
+        return $this->db->where('deleted_at', null)->where_in('produceCode', $array_keys)->get('products')->result('product_model');
     }
 
     /**
@@ -185,5 +201,17 @@ class Product_model extends MY_Model
     public function update()
     {
         return $this->db->update('products', $this, ['produceCode' => $this->produceCode], 1);
+    }
+
+    /**
+     * Soft delete from view, not the database.
+     *
+     * @return bool
+     */
+    public function softDelete()
+    {
+        $this->deleted_at = mdate();
+
+        return $this->update();
     }
 }

@@ -49,7 +49,7 @@ class Product extends MY_Controller
         $product = $this->product_model->firstWhereProduceCode($produceCode);
 
         // block if not admin
-        if (!authenticated() || !user()->hasAdminRole()) {
+        if (! authenticated() || ! user()->hasAdminRole()) {
             show_error('You do not have permissions to view this page', 500);
         }
 
@@ -86,15 +86,14 @@ class Product extends MY_Controller
 
         /** @var Supplier_model $supplier */
         $supplier = $this->supplier_model->firstWhereId($this->input->post('supplier_id'));
-
         $product->description = $this->input->post('description');
         $product->supplier = $supplier->name;
         $product->content = $this->input->post('content');
         $product->bulkSalePrice = $this->input->post('sale_price');
         $product->update();
 
-        // redirect ot the view product link
-        redirect($product->viewProductLink());
+        // redirect to view.
+        return $this->view($produceCode);
     }
     /**
      * Search products in the database.
@@ -109,5 +108,20 @@ class Product extends MY_Controller
             'heading' => "Searching {$textToSearch}",
             'products' => $this->product_model->allWhereLike($textToSearch),
         ]);
+    }
+
+    /**
+     * Soft delete a product
+     */
+    public function delete($produceCode)
+    {
+        /** @var Product_model $product */
+        $product = $this->product_model->firstWhereProduceCode($produceCode);
+
+        // delete the model.
+        $product->softDelete();
+
+        // return to index.
+        return $this->index();
     }
 }

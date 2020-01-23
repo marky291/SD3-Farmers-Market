@@ -19,6 +19,7 @@ class Wishlist_model extends MY_Model
             ->select('products.*')
             ->from('wishlist')
             ->join('products', 'products.produceCode = wishlist.product_id')
+            ->where('products.deleted_at', null)
             ->get()
             ->result('product_model');
     }
@@ -35,6 +36,7 @@ class Wishlist_model extends MY_Model
             ->select('customers.*')
             ->from('wishlist')
             ->join('products', 'products.produceCode = wishlist.customer_id')
+            ->where('products.deleted_at', null)
             ->get()
             ->result('customer_model');
     }
