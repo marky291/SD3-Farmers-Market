@@ -16,7 +16,11 @@
             inline-template>
                 <div class="card-view">
 
-                    <form action="/product/update/<?php echo $product->produceCode ?>" method="post">
+                    <?php if ($product->exists()): ?>
+                        <form action="/product/update/<?php echo $product->produceCode ?>" enctype="multipart/form-data" method="post">
+                    <?php else: ?>
+                        <form action="/product/save" enctype="multipart/form-data" method="post">
+                    <?php endif ?>
                         <div class="d-flex">
                         <div class="col-7">
                             <div class="d-flex">
@@ -49,22 +53,24 @@
                                         <?php endif ?>
                                     <?php endif ?>
                                 </div>
-                                <div class="d-flex align-self-center add-to-cart-icon">
-                                    <?php if (authenticated()): ?>
-                                        <button type="button" class="btn btn-light d-flex mr-2" @click.stop="toggleWishlist()">
+                                <?php if ($product->exists()): ?>
+                                    <div class="d-flex align-self-center add-to-cart-icon">
+                                        <?php if (authenticated()): ?>
+                                            <button type="button" class="btn btn-light d-flex mr-2" @click.stop="toggleWishlist()">
+                                                <small>Save <i :class="wishlist ? 'fas fa-heart' : 'far fa-heart'" class="text-danger"></i></small>
+                                            </button>
+                                            <button type="button" class="btn btn-light d-flex" @click.stop="addThisItemToBasket()">
+                                                <small>Purchase <i class="fas fa-cart-plus"></i> <b>{{ count }}</b></small>
+                                            </button>
+                                        <?php else: ?>
+                                        <button type="button" class="btn btn-light d-flex mr-2" @click.stop="redirect('/auth/login')">
                                             <small>Save <i :class="wishlist ? 'fas fa-heart' : 'far fa-heart'" class="text-danger"></i></small>
                                         </button>
-                                        <button type="button" class="btn btn-light d-flex" @click.stop="addThisItemToBasket()">
-                                            <small>Purchase <i class="fas fa-cart-plus"></i> <b>{{ count }}</b></small>
-                                        </button>
-                                    <?php else: ?>
-                                    <button type="button" class="btn btn-light d-flex mr-2" @click.stop="redirect('/auth/login')">
-                                        <small>Save <i :class="wishlist ? 'fas fa-heart' : 'far fa-heart'" class="text-danger"></i></small>
-                                    </button>
-                                    <button type="button" class="btn btn-light d-flex" @click.stop="redirect('/auth/login')()">
-                                        <small>Purchase <i class="fas fa-cart-plus"></i> <b>0</b></small>
-                                    <?php endif ?>
-                                </div>
+                                        <button type="button" class="btn btn-light d-flex" @click.stop="redirect('/auth/login')()">
+                                            <small>Purchase <i class="fas fa-cart-plus"></i> <b>0</b></small>
+                                            <?php endif ?>
+                                    </div>
+                                <?php endif ?>
                             </div>
                             <?php if (!isset($editing) || $editing === false ): ?>
                                 <p class="text-justify">
@@ -106,9 +112,11 @@
                                         <?php if (!isset($editing) || $editing === false): ?>
                                             <button type="button" class="btn btn-warning" @click="redirect('<?php echo $product->deleteProductLink() ?>')">Delete</button>
                                             <button type="button" class="btn btn-info" @click="redirect('<?php echo $product->editProductLink() ?>')">Modify</button>
-                                        <?php else: ?>
+                                        <?php elseif ($product->exists()): ?>
                                             <button type="submit" class="btn btn-outline-info">Update</button>
                                             <button type="button" class="btn btn-info" @click="redirect('<?php echo $product->viewProductLink() ?>')">View</button>
+                                        <?php else: ?>
+                                            <button type="submit" value="upload" class="btn btn-primary">Create</button>
                                         <?php endif ?>
                                     <?php endif ?>
                                 </div>
@@ -125,7 +133,7 @@
                                     background: linear-gradient(rgba(247, 247, 247, 0), rgba(139, 139, 139, 0.08) 80%, rgba(0, 0, 0, 0.65));
                             ">
                             <?php if (isset($editing) && $editing === true ): ?>
-                                <input type="file" class=" px-2 py-2" style="position:absolute; bottom:14px; background:#ffffffe3" id="inputGroupFile01">
+                                <input type="file" name="userfile" size="20" class="px-2 py-2" style="position:absolute; bottom:14px; background:#ffffffe3" id="inputGroupFile01">
                             <?php endif ?>
                             </div>
                         </div>

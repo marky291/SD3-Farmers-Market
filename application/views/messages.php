@@ -1,4 +1,4 @@
-<?php if (authenticated() && user()->is_admin) : ?>
+<?php if (authenticated() && user()->hasAdminRole()) : ?>
     <div class="alert alert-info mb-0" role="alert">
         <div class="container">
             You are currently logged in with administrative privileges

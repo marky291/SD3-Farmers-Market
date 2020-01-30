@@ -12,6 +12,9 @@
                 <div class="d-flex justify-content-between align-items-center">
                     <h4 class="mb-1"><?php echo plural($heading)?></h4>
                     <?php if(authenticated()): ?>
+                        <?php if(user()->hasAdminRole()): ?>
+                            <a href="/product/create"><span class="font-weight-bold">Add new Product</span></a>
+                        <?php endif ?>
                         <a href="/wishlist/index"><span class="font-weight-bold">My Wishlist <i class="fas fa-star"></i></span></a>
                     <?php endif ?>
                 </div>

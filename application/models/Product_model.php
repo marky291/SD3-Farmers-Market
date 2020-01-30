@@ -18,7 +18,7 @@ class Product_model extends MY_Model
     /**
      * @var int
      */
-    public $quantityInStock;
+    public $quantityInStock = 0;
     /**
      * @var double
      */
@@ -194,6 +194,14 @@ class Product_model extends MY_Model
     }
 
     /**
+     * @return bool
+     */
+    public function exists()
+    {
+        return $this->produceCode ? true : false;
+    }
+
+    /**
      * Update the active record to the database.
      *
      * @return bool
@@ -201,6 +209,21 @@ class Product_model extends MY_Model
     public function update()
     {
         return $this->db->update('products', $this, ['produceCode' => $this->produceCode], 1);
+    }
+
+    /**
+     * Save the object as an new entity in the database with the attributes
+     *
+     * @param array $attributes
+     * @return Customer_model
+     */
+    public function save($attributes = array())
+    {
+        // insert into database,
+        $this->db->insert('products', $attributes);
+
+        // return the object we created in database (ORM)
+        return $this->firstWhereProduceCode($attributes['produceCode']);
     }
 
     /**

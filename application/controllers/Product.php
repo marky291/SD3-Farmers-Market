@@ -55,8 +55,28 @@ class Product extends MY_Controller
 
         return $this->load->view('products/view', [
             'editing' => true,
-            'heading' => "Editing {$product->description}",
             'product' => $product,
+            'suppliers' => $this->supplier_model->all(),
+            'heading' => "Editing {$product->description}",
+        ]);
+    }
+
+    /**
+     * Form for creating, with a empty object.
+     *
+     * @return object|string
+     */
+    public function create()
+    {
+        // block if not admin
+        if (! authenticated() || ! user()->hasAdminRole()) {
+            show_error('You do not have permissions to view this page', 500);
+        }
+
+        return $this->load->view('products/view', [
+            'editing' => true,
+            'product' => new Product_model,
+            'heading' => 'Creating a new product',
             'suppliers' => $this->supplier_model->all(),
         ]);
     }
@@ -95,6 +115,62 @@ class Product extends MY_Controller
         // redirect to view.
         return $this->view($produceCode);
     }
+
+    public function save()
+    {
+        // check if get request or if the form validation fails.
+        if ($this->isGetMethod() || $this->failsFormValidation()) {
+            $this->create();
+        }
+
+        // try upload main image.
+        if (!$this->upload->do_upload()) {
+            throw new Exception($this->upload->display_errors()[0]);
+        }
+
+        // image resizer and shit
+        $filename = $this->upload->data()['file_name'];
+        $fullPath = $this->upload->data()['full_path'];
+        $this->createProductFullImage($fullPath);
+        $this->createProductThumbnail($fullPath);
+
+        // create model.
+        $product = new Product_model();
+        $product->save(array(
+            'produceCode' => 'S'.rand(10, 99).'_'.rand(1000, 9999),
+            'description' => $this->input->post('description'),
+            'productLine' => $this->input->post('productLine'),
+            'supplier' => $this->input->post('supplier'),
+            'quantityInStock' => $this->input->post('stock'),
+            'bulkBuyPrice' => $this->input->post('bulkBuy'),
+            'bulkSalePrice' => $this->input->post('bulkSale'),
+            'photo' => $filename,
+            'content' => $this->input->post('content')
+        ));
+    }
+
+    private function createProductFullImage($path) 
+    {
+        $config['source_image'] = $path;
+        $config['maintain_ratio'] = 'TRUE';
+        $config['width'] = '350';
+        $config['height'] = '200';
+        $this->load->library('image_lib', $config);
+        $this->image_lib->resize();
+        $this->image_lib->clear();
+    }
+
+    private function createProductThumbnail($path) 
+    {
+		$config['source_image'] = $path;
+		$config['new_image'] = '../public/images/test/thumbs/';
+		$config['maintain_ratio'] = 'FALSE';
+		$config['width'] = '145';
+		$config['height'] = '78';
+		$this->image_lib->initialize($config);
+		$this->image_lib->resize();
+    }
+
     /**
      * Search products in the database.
      *

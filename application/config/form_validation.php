@@ -98,6 +98,28 @@
                 'rules' => 'required|min_length[25]|max_length[1500]'
             ),
         ),
+        'product/save' => array(
+            array(
+                'field' => 'description',
+                'label' => 'Description',
+                'rules' => 'required|min_length[3]|max_length[20]',
+            ),
+            array(
+                'field' => 'supplier_id',
+                'label' => 'Supplier',
+                'rules' => 'required|numeric'
+            ),
+            array(
+                'field' => 'sale_price',
+                'label' => 'Sale Price',
+                'rules' => 'required|numeric'
+            ),
+            array(
+                'field' => 'content',
+                'label' => 'Content',
+                'rules' => 'required|min_length[25]|max_length[1500]'
+            ),
+        ),
     );
 
     // set a default delimeter.
