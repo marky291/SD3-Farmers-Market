@@ -93,6 +93,11 @@
                 'rules' => 'required|numeric'
             ),
             array(
+                'field' => 'stock',
+                'label' => 'Stock Quantity',
+                'rules' => 'required|numeric'
+            ),
+            array(
                 'field' => 'content',
                 'label' => 'Content',
                 'rules' => 'required|min_length[25]|max_length[1500]'

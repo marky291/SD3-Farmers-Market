@@ -2,6 +2,12 @@
 <?php $this->view('header'); ?>
 
 <div id="app" class="container">
+<?php if (validation_errors()): ?>
+                <div class="mb-4">
+                    <p class="mb-0 font-weight-bold">[DEBUG]: Validation failure due to the following issues:</p>
+                    <?php echo validation_errors('<span class="badge badge-danger">', '</span>'); ?>
+                </div>
+            <?php endif; ?>
     <div class="row py-5">
         <div class="col-2">
             <?php $this->view('sidebar'); ?>
@@ -101,7 +107,10 @@
                             <div class="row my-4 align-items-center">
                                 <div class="col d-flex">
                                     <?php if (!isset($editing) || $editing === false ): ?>
-                                        <h4 class="font-weight-bold mb-0">EUR <?php echo $product->formatSalePrice() ?></h4>
+                                        <div class="d-flex flex-column">
+                                            <h4 class="font-weight-bold mb-0">EUR <?php echo $product->formatSalePrice() ?></h4>
+                                            <h4 class="font-weight-bold mb-0">In Stock <?php echo $product->quantityInStock ?></h4>
+                                        </div>
                                     <?php else: ?>
                                         <h4 class="font-weight-bold">
                                             <div class="form-group align-items-center mb-0 d-flex">

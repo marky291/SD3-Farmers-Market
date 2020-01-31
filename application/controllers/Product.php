@@ -104,12 +104,29 @@ class Product extends MY_Controller
             show_error('You do not have permissions to view this page', 500);
         }
 
+        if (!empty($_FILES['userfile']['name'])) {
+            // try upload main image.
+            if (!$this->upload->do_upload()) {
+                throw new Exception($this->upload->display_errors()[0]);
+            }
+            // image resizer and shit
+            $filename = $this->upload->data()['file_name'];
+            $fullPath = $this->upload->data()['full_path'];
+            $this->createProductFullImage($fullPath);
+            $this->createProductThumbnail($fullPath);
+        }
+
         /** @var Supplier_model $supplier */
         $supplier = $this->supplier_model->firstWhereId($this->input->post('supplier_id'));
         $product->description = $this->input->post('description');
         $product->supplier = $supplier->name;
+        $product->productLine = $this->input->post('productLine');
         $product->content = $this->input->post('content');
+        $product->quantityInStock = $this->input->post('stock');
         $product->bulkSalePrice = $this->input->post('sale_price');
+        if (isset($filename)) {
+            $product->photo = $filename;
+        }
         $product->update();
 
         // redirect to view.
@@ -141,16 +158,18 @@ class Product extends MY_Controller
         $supplier_id = $this->input->post('supplier_id');
         $supplier = (new Supplier_model)->firstWhereId($supplier_id);
 
-        $product->save(array(
+        $product = $product->save(array(
             'produceCode' => 'S'.rand(10, 99).'_'.rand(1000, 9999),
             'description' => $this->input->post('description'), //title
             'content' => $this->input->post('content'),
             'productLine' => $this->input->post('productLine'),
             'supplier' => $supplier->name,
             'quantityInStock' => $this->input->post('stock'),
-            'bulkBuyPrice' => $this->input->post('sale_price'),
+            'bulkSalePrice' => $this->input->post('sale_price'),
             'photo' => $filename,
         ));
+
+        $this->view($product->produceCode);
     }
 
     private function createProductFullImage($path) 
