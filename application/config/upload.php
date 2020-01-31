@@ -1,7 +1,7 @@
 <?php
 
     $config = array(
-        'upload_path' => "../public/images/test/full/",
+        'upload_path' => "../public/images/products/full/",
         'allowed_types' => "gif|jpg|png|jpeg|pdf",
         'overwrite' => TRUE,
         'max_size' => "2048000",

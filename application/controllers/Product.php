@@ -136,16 +136,20 @@ class Product extends MY_Controller
 
         // create model.
         $product = new Product_model();
+
+        // get the supplier
+        $supplier_id = $this->input->post('supplier_id');
+        $supplier = (new Supplier_model)->firstWhereId($supplier_id);
+
         $product->save(array(
             'produceCode' => 'S'.rand(10, 99).'_'.rand(1000, 9999),
-            'description' => $this->input->post('description'),
+            'description' => $this->input->post('description'), //title
+            'content' => $this->input->post('content'),
             'productLine' => $this->input->post('productLine'),
-            'supplier' => $this->input->post('supplier'),
+            'supplier' => $supplier->name,
             'quantityInStock' => $this->input->post('stock'),
-            'bulkBuyPrice' => $this->input->post('bulkBuy'),
-            'bulkSalePrice' => $this->input->post('bulkSale'),
+            'bulkBuyPrice' => $this->input->post('sale_price'),
             'photo' => $filename,
-            'content' => $this->input->post('content')
         ));
     }
 
@@ -163,7 +167,7 @@ class Product extends MY_Controller
     private function createProductThumbnail($path) 
     {
 		$config['source_image'] = $path;
-		$config['new_image'] = '../public/images/test/thumbs/';
+		$config['new_image'] = '../public/images/products/thumbs/';
 		$config['maintain_ratio'] = 'FALSE';
 		$config['width'] = '145';
 		$config['height'] = '78';

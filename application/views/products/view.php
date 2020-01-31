@@ -27,6 +27,7 @@
                                 <div class="mb-3" style="flex:5; padding-right: 45px;">
                                     <?php if (!isset($editing) || $editing === false ): ?>
                                         <h3 class="card-title mb-1"><?php echo $product->description ?></h3>
+                                        <p class="card-title mb-1"><?php echo $product->productLine ?></h3>
                                     <?php else: ?>
                                         <div class="form-group">
                                             <input id="descriptionInput" class="card-title w-100 mb-1 p-1 form-control font-weight-bold <?php echo feedback('description') ?>" name="description" style="font-size:1.4em" value="<?php echo $product->description ?>" placeholder="Product Name">
@@ -51,6 +52,14 @@
                                                 <?php echo form_error('supplier_id'); ?>
                                             </div>
                                         <?php endif ?>
+                                        <div class="form-group mt-2" style="font-size:80%">
+                                            <input id="productLineInput" class="<?php echo feedback('productLine') ?>" name="productLine" style="font-size:1.4em" value="<?php echo $product->productLine ?>" placeholder="Product Line">
+                                            <?php if (form_error('productLine')): ?>
+                                                <div class="invalid-feedback">
+                                                    <?php echo form_error('productLine'); ?>
+                                                </div>
+                                            <?php endif ?>
+                                        </div>
                                     <?php endif ?>
                                 </div>
                                 <?php if ($product->exists()): ?>
@@ -104,7 +113,16 @@
                                                 </div>
                                             <?php endif ?>
                                         </h4>
-
+                                        <h4 class="font-weight-bold">
+                                            <div class="form-group align-items-center mb-0 d-flex">
+                                                QTY <input placeholder="Stock" class="card-title ml-2 mb-0 p-1 col font-weight-bold form-control <?php echo feedback('stock') ?>" name="stock" value="<?php echo $product->quantityInStock ?>" style="font-size:0.9em">
+                                            </div>
+                                            <?php if (form_error('stock')): ?>
+                                                <div class="invalid-feedback">
+                                                    <?php echo form_error('stock'); ?>
+                                                </div>
+                                            <?php endif ?>
+                                        </h4>
                                     <?php endif ?>
                                 </div>
                                 <div class="col text-right">
